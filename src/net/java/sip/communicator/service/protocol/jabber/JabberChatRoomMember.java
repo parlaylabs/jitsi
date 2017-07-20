@@ -18,6 +18,7 @@
 package net.java.sip.communicator.service.protocol.jabber;
 
 import net.java.sip.communicator.service.protocol.*;
+import org.jivesoftware.smack.packet.*;
 
 /**
  * {@link ChatRoomMember} interface extension that provides additional
@@ -34,4 +35,10 @@ public interface JabberChatRoomMember
      *         permissions to look up user's JID.
      */
     public String getJabberID();
+
+    /**
+     * @return the last received {@link Presence} from this
+     * {@link ChatRoomMember}.
+     */
+    public Presence getPresence();
 }

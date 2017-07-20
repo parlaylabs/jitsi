@@ -21,6 +21,7 @@ import net.java.sip.communicator.service.protocol.*;
 import net.java.sip.communicator.service.protocol.jabber.*;
 import net.java.sip.communicator.service.protocol.jabberconstants.*;
 
+import org.jivesoftware.smack.packet.*;
 import org.jivesoftware.smack.util.*;
 import org.jivesoftware.smackx.muc.*;
 
@@ -63,6 +64,16 @@ public class ChatRoomMemberJabberImpl
      * The avatar of this chat room member.
      */
     private byte[] avatar;
+
+    /**
+     * The last received {@link Presence} for this {@link ChatRoomMember}.
+     */
+    private Presence lastPresence;
+
+    /**
+     * The display name of this {@link ChatRoomMember}.
+     */
+    private String displayName;
 
     /**
      * Creates a jabber chat room member with the specified containing chat
@@ -116,6 +127,15 @@ public class ChatRoomMemberJabberImpl
     public String getJabberID()
     {
         return jabberID;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Presence getPresence()
+    {
+        return lastPresence;
     }
 
     /**
@@ -269,4 +289,31 @@ public class ChatRoomMemberJabberImpl
          return ((ProtocolProviderServiceJabberImpl) getProtocolProvider())
              .getJabberStatusEnum().getStatus(JabberStatusEnum.AVAILABLE);
      }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getDisplayName()
+    {
+        return displayName;
+    }
+
+    /**
+     * Sets the display name of this {@link ChatRoomMember}.
+     * @param displayName the display name to set.
+     */
+    void setDisplayName(String displayName)
+    {
+        this.displayName = displayName;
+    }
+
+    /**
+     * Sets the last received presence for this {@link ChatRoomMember}.
+     * @param presence the presence to set.
+     */
+    void setPresence(Presence presence)
+    {
+        lastPresence = presence;
+    }
 }
