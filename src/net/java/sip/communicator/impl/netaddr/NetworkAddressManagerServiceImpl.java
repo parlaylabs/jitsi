@@ -430,15 +430,13 @@ public class NetworkAddressManagerServiceImpl
             }
         }
 
-        int currentlyTriedPort = NetworkUtils.getRandomPortNumber();
-
         //we'll first try to bind to a random port. if this fails we'll try
         //again (bindRetries times in all) until we find a free local port.
         for (int i = 0; i < bindRetries; i++)
         {
             try
             {
-                resultSocket = new DatagramSocket(currentlyTriedPort);
+                resultSocket = new DatagramSocket(0);
                 //we succeeded - break so that we don't try to bind again
                 break;
             }
@@ -450,15 +448,9 @@ public class NetworkAddressManagerServiceImpl
                                  + "a local host discovery socket.", exc);
                     return null;
                 }
+
                 //port seems to be taken. try another one.
-                if (logger.isDebugEnabled())
-                    logger.debug("Port " + currentlyTriedPort
-                             + " seems in use.");
-                currentlyTriedPort
-                    = NetworkUtils.getRandomPortNumber();
-                if (logger.isDebugEnabled())
-                    logger.debug("Retrying bind on port "
-                             + currentlyTriedPort);
+                logger.warn("Port seems to be in use. Retyring...", exc);
             }
         }
 

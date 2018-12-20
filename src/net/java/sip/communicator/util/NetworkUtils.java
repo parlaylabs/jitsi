@@ -82,8 +82,12 @@ public class NetworkUtils
     /**
      * The minimum int value that could correspond to a port number bindable
      * by the SIP Communicator.
+     *
+     * IANA recommends the dynamic port range of 49152-65535.
+     *
+     * @see <a href="https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml">IANA Service Name and Transport Protocol Port Number Registry</a>
      */
-    public static final int    MIN_PORT_NUMBER = 1024;
+    public static final int    MIN_PORT_NUMBER = 49152;
 
     /**
      * The random port number generator that we use in getRandomPortNumer()
